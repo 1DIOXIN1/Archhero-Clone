@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities;
 using _Project.Develop.Runtime.Utilities.ConfigsManagement;
@@ -42,7 +43,7 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
             
             Debug.Log("End load");
             
-            yield return _projectContainer.Resolve<SceneSwitcherService>().ProcessSwitchTo(Scenes.MainMenu);
+            yield return _projectContainer.Resolve<SceneSwitcherService>().ProcessSwitchTo(Scenes.GamePlay, new GameplayInputArgs(GameplayType.Numbers));
         }
 
         private IEnumerator LoadData()

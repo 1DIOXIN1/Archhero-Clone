@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _Project.Develop.Runtime.Configs.Core.Gameplay;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.Main;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
@@ -18,6 +19,9 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
         private IInputService _input;
         private GameplayInputArgs _gameplayInputArgs;
         private bool _isRunning = false;
+        
+        [SerializeField] private TestGameplay _testGameplay;
+        private EntitiesLifeContext _entitiesLifeContext;
 
         public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs)
         {
@@ -37,6 +41,9 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
             
             _input = _container.Resolve<IInputService>();
             
+            _testGameplay.Initialize(_container);
+            _entitiesLifeContext = _container.Resolve<EntitiesLifeContext>();
+            
             if (_input is Controller controller)
                 controller.Enable();
         }
@@ -47,6 +54,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
                 return;
 
             _input.Update(Time.deltaTime);
+            _entitiesLifeContext?.Update(Time.deltaTime);
         }
 
         public override void Run()
@@ -58,6 +66,8 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
             checker.StartCheck(generator.Generate(config.LenghtSequence, _gameplayInputArgs.GameplayType), _input);
 
             _container.Resolve<GameplayCycle>().StartGame(_gameplayInputArgs);
+            
+            _testGameplay.Run();
 
             _isRunning = true;
         }

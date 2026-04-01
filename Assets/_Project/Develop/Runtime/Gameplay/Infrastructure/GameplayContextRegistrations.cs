@@ -1,4 +1,6 @@
 using System;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using _Project.Develop.Runtime.Gameplay.Main;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.Progress;
@@ -25,9 +27,26 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateGameplayCycle).NonLazy();
             container.RegisterAsSingle(CreateGameplayPresentersFactory).NonLazy();
             container.RegisterAsSingle(CreateSequenceChecker);
+            container.RegisterAsSingle(CreateEntitiesFactory);
+            container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
+            container.RegisterAsSingle(CreateEntitiesLifeContext);
             container.RegisterAsSingle(CreateGameplayScreen).NonLazy();
         }
 
+        private static EntitiesFactory CreateEntitiesFactory(DIContainer container)
+        => new EntitiesFactory(container);
+        
+        private static MonoEntitiesFactory CreateMonoEntitiesFactory(DIContainer container)
+        {
+            ResourcesAssetsLoader assetsLoader = container.Resolve<ResourcesAssetsLoader>();
+            EntitiesLifeContext entitiesLifeContext = container.Resolve<EntitiesLifeContext>();
+            
+            return new MonoEntitiesFactory(assetsLoader, entitiesLifeContext);
+        }
+
+        private static EntitiesLifeContext CreateEntitiesLifeContext(DIContainer container)
+            => new EntitiesLifeContext();
+        
         private static GameplaySequenceGeneratorService CreateGameplaySequenceGeneratorService(DIContainer container) 
             =>new GameplaySequenceGeneratorService();
         
