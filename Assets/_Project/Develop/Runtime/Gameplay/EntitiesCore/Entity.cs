@@ -40,7 +40,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
             _isInit = false;
         }
 
-        public Entity AddComponent<TComponent>(TComponent component) where TComponent : IEntityComponent
+        public Entity AddComponent<TComponent>(TComponent component) where TComponent : class, IEntityComponent
         {
             _components.Add(typeof(TComponent), component);
             return this;
