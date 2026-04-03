@@ -1,5 +1,4 @@
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
-using _Project.Develop.Runtime.Gameplay.Features.Movement;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using UnityEngine;
 
@@ -11,7 +10,8 @@ namespace _Project.Develop.Runtime.Gameplay
         private bool _isRunning = false;
         private EntitiesFactory _entitiesFactory;
 
-        private Entity _entity;
+        private Entity _rigidbodyEntity;
+        private Entity _characterControllerEntity;
         
         public void Initialize(DIContainer container)
         {
@@ -21,7 +21,8 @@ namespace _Project.Develop.Runtime.Gameplay
 
         public void Run()
         {
-            _entity = _entitiesFactory.CreateTestEntity(Vector3.zero);
+            _rigidbodyEntity = _entitiesFactory.CreateRigidbodyEntity(Vector3.zero);
+            _characterControllerEntity = _entitiesFactory.CreateCharacterControllerEntity(Vector3.zero + new Vector3(0f, 3f, 0f));
             
             _isRunning = true;
         }
@@ -33,7 +34,8 @@ namespace _Project.Develop.Runtime.Gameplay
             
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
             
-            _entity.MoveDirection.Value = input;
+            _rigidbodyEntity.MoveDirection.Value = input;
+            _characterControllerEntity.MoveDirection.Value = input;
         }
     }
 }

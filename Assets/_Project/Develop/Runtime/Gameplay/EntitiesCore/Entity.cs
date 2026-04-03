@@ -85,7 +85,6 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
                 if(_isInit)
                     initializable.OnInit(this);
             }
-                
             
             if(system is IUpdatableSystem updatable)
                 _updatables.Add(updatable);

@@ -30,7 +30,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateEntitiesFactory);
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
             container.RegisterAsSingle(CreateEntitiesLifeContext);
-            container.RegisterAsSingle(CreateGameplayScreen).NonLazy();
+            container.RegisterAsSingle(CreateGameplayScreen);
         }
 
         private static EntitiesFactory CreateEntitiesFactory(DIContainer container)
