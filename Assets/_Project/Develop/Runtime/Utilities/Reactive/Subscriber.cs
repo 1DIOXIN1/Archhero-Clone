@@ -2,6 +2,38 @@ using System;
 
 namespace _Project.Develop.Runtime.Utilities.Reactive
 {
+    public class Subscriber : IDisposable
+    {
+        private Action<Subscriber> _onDispose;
+        private Action _action;
+        private IDisposable _disposableImplementation;
+
+        public Subscriber(Action action,  Action<Subscriber> onDispose)
+        {
+            _action = action;
+            _onDispose = onDispose;
+        }
+        
+        public void Invoke() => _action?.Invoke();
+        public void Dispose() => _onDispose?.Invoke(this);
+    }
+    
+    public class Subscriber<T> : IDisposable
+    {
+        private Action<Subscriber<T>> _onDispose;
+        private Action<T> _action;
+        private IDisposable _disposableImplementation;
+
+        public Subscriber(Action<T> action,  Action<Subscriber<T>> onDispose)
+        {
+            _action = action;
+            _onDispose = onDispose;
+        }
+        
+        public void Invoke(T arg) => _action?.Invoke(arg);
+        public void Dispose() => _onDispose?.Invoke(this);
+    }
+    
     public class Subscriber<T, K> : IDisposable
     {
         private Action<Subscriber<T, K>> _onDispose;

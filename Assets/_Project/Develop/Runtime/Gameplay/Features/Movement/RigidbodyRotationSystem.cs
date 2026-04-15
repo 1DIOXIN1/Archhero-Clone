@@ -1,5 +1,6 @@
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
+using _Project.Develop.Runtime.Utilities.Conditions;
 using _Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
@@ -7,23 +8,38 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Movement
 {
     public class RigidbodyRotationSystem : IInitializableSystem, IUpdatableSystem
     {
-        private ReactiveVariable<Vector3> _moveDirection;
+        private ReactiveVariable<Vector3> _direction;
+        private ReactiveVariable<float> _rotationSpeed;
         private Rigidbody _rigidbody;
+        
+        private ICompositeCondition _canRotate;
         
         public void OnInit(Entity entity)
         {
             _rigidbody = entity.Rigidbody;
-            _moveDirection = entity.MoveDirection;
+            _rotationSpeed = entity.RotationSpeed;
+            _direction = entity.RotationDirection;
+            _canRotate = entity.CanRotate;
+            
+            if(_direction.Value != Vector3.zero)
+               _rigidbody.transform.rotation = Quaternion.LookRotation(_direction.Value.normalized);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if(_moveDirection.Value == Vector3.zero)//Возможно костыль
+            if (_canRotate.Evaluate() == false)
                 return;
             
-            Quaternion lookRotation = Quaternion.LookRotation(_moveDirection.Value);
+            if(_direction.Value == Vector3.zero)
+                return;
             
-            _rigidbody.MoveRotation(lookRotation);
+            Quaternion lookRotation = Quaternion.LookRotation(_direction.Value.normalized);
+
+            float step = _rotationSpeed.Value * deltaTime;
+            
+            Quaternion rotation = Quaternion.RotateTowards(_rigidbody.rotation, lookRotation, step);
+            
+            _rigidbody.MoveRotation(rotation);
         }
     }
 }

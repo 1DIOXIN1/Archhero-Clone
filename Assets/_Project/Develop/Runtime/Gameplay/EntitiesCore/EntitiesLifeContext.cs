@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-    public class EntitiesLifeContext : IDisposable
+    public class EntitiesLifeContext
     {
         public event Action<Entity> Added;
         public event Action<Entity> Released;

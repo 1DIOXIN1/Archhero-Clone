@@ -31,17 +31,22 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
             container.RegisterAsSingle(CreateMonoEntitiesFactory).NonLazy();
             container.RegisterAsSingle(CreateEntitiesLifeContext);
             container.RegisterAsSingle(CreateGameplayScreen);
+            container.RegisterAsSingle(CreateCollidersRegistryService);
         }
+        
+        public static CollidersRegistryService CreateCollidersRegistryService(DIContainer container)
+            => new CollidersRegistryService();
 
         private static EntitiesFactory CreateEntitiesFactory(DIContainer container)
-        => new EntitiesFactory(container);
+            => new EntitiesFactory(container);
         
         private static MonoEntitiesFactory CreateMonoEntitiesFactory(DIContainer container)
         {
             ResourcesAssetsLoader assetsLoader = container.Resolve<ResourcesAssetsLoader>();
             EntitiesLifeContext entitiesLifeContext = container.Resolve<EntitiesLifeContext>();
+            CollidersRegistryService collidersRegistryService = container.Resolve<CollidersRegistryService>();
             
-            return new MonoEntitiesFactory(assetsLoader, entitiesLifeContext);
+            return new MonoEntitiesFactory(assetsLoader, entitiesLifeContext, collidersRegistryService);
         }
 
         private static EntitiesLifeContext CreateEntitiesLifeContext(DIContainer container)

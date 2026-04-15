@@ -22,7 +22,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Movement
         {
             Vector3 moveDirection = _moveDirection.Value;
             
-            _characterController.Move(moveDirection.normalized* _moveSpeed.Value * deltaTime);
+            _characterController.Move(moveDirection.normalized * _moveSpeed.Value * deltaTime);
         }
     }
 }
