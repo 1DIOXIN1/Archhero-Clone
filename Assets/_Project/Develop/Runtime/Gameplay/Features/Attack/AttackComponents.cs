@@ -53,6 +53,21 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
     public class InstantAttackDamage : IEntityComponent
     {
         public ReactiveVariable<float> Value;
+    }   
+    
+    public class InstantSplashAttackDamage : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }   
+    
+    public class InstantSplashAttackRadius : IEntityComponent
+    {
+        public ReactiveVariable<float> Value;
+    }
+    
+    public class TeleportEvent : IEntityComponent
+    {
+        public ReactiveEvent Value;
     }
     
     public class ShootPoint : IEntityComponent

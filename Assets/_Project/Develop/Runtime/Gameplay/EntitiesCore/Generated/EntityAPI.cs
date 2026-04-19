@@ -414,6 +414,48 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.InstantAttackDamage() {Value = value});
 		}
 
+		public _Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackDamage InstantSplashAttackDamageC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackDamage>();
+
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> InstantSplashAttackDamage => InstantSplashAttackDamageC.Value;
+
+		public _Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddInstantSplashAttackDamage()
+		{
+			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackDamage() { Value = new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>() });
+		}
+
+		public _Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddInstantSplashAttackDamage(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackDamage() {Value = value});
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackRadius InstantSplashAttackRadiusC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackRadius>();
+
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> InstantSplashAttackRadius => InstantSplashAttackRadiusC.Value;
+
+		public _Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddInstantSplashAttackRadius()
+		{
+			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackRadius() { Value = new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>() });
+		}
+
+		public _Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddInstantSplashAttackRadius(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value)
+		{
+			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.InstantSplashAttackRadius() {Value = value});
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Features.Attack.TeleportEvent TeleportEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.TeleportEvent>();
+
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent TeleportEvent => TeleportEventC.Value;
+
+		public _Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTeleportEvent()
+		{
+			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.TeleportEvent() { Value = new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent() });
+		}
+
+		public _Project.Develop.Runtime.Gameplay.EntitiesCore.Entity AddTeleportEvent(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent value)
+		{
+			return AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Attack.TeleportEvent() {Value = value});
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.ShootPoint ShootPointC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.ShootPoint>();
 
 		public UnityEngine.Transform ShootPoint => ShootPointC.Value;
